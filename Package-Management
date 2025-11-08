@@ -47,3 +47,62 @@ chmod +x path/to/application.AppImage
 
 wget "https://github.com/AppImage/appimaged/releases/download/continuous/appimaged-x86_64.AppImage"
 
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+sudo apt install ansible
+
+Configure the inventory file (/etc/ansible/hosts) with target hosts:
+
+[webservers]
+web1.example.com
+web2.example.com
+
+[dbservers]
+db1.example.com
+db2.example.com
+
+Using Ansible for Package Management Update package cache on all hosts: - name: Update package cache
+  
+hosts: all
+  become: yes
+  tasks:
+    - name: Update apt cache (Debian/Ubuntu)
+      apt:
+        update_cache: yes
+      when: ansible_os_family == "Debian"
+
+
+Install packages on specific host groups: - name: Install web server packages
+  hosts: webservers
+  become: yes
+  tasks:
+    - name: Install Apache and PHP
+      package:
+        name:
+          - apache2
+          - php
+        state: present
+
+
+
+Upgrade all packages on all hosts: - name: Upgrade all packages
+  hosts: all
+  become: yes
+  tasks:
+    - name: Upgrade packages (Debian/Ubuntu)
+      apt:
+        upgrade: dist
+      when: ansible_os_family == "Debian"
+
+
+
+Remove packages from specific hosts: - name: Remove unnecessary packages
+  hosts: webservers
+  become: yes
+  tasks:
+    - name: Remove FTP server
+      package:
+        name: vsftpd
+        state: absent
+
