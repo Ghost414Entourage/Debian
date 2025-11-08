@@ -1,0 +1,109 @@
+main – Fully DFSG‑free software Debian supports directly.  
+
+contrib – Free itself, but depends on non‑free bits.  
+
+non‑free – Redistributable but not fully free (licenses restrict).  
+
+non‑free‑firmware – Moved out in newer releases to make firmware handling clearer (important for Wi‑Fi, GPUs, NICs).
+
+
+
+Beyond the main suite categories, Debian provides special update channels: 
+
+security Timely security fixes for stable Always enable in production. 
+
+updates (aka stable‑updates) Urgent fixes that can’t wait for the next point release (e.g., timezone, essential bugfix) Recommended for most installs. 
+
+proposed‑updates Candidate packages for the next point release (staging) Test labs before large fleet upgrades. 
+
+backports Selected packages rebuilt from testing (newer versions) for stable Use sparingly, per‑package installs; good for new kernels, drivers, language runtimes.
+
+
+/etc/apt/sources.list.d/
+
+# /etc/apt/sources.list 
+deb http://deb.debian.org/debian bookworm main contrib non-free non-free-firmware 
+deb http://deb.debian.org/debian-security bookworm-security main contrib non-free non-free-firmware 
+deb http://deb.debian.org/debian bookworm-updates main contrib non-free non-free-firmware 
+# backports are opt-in; comment out until needed: 
+# deb http://deb.debian.org/debian bookworm-backports main contrib non-free non-free-firmware
+
+
+
+
+sudo tee /etc/apt/sources.list > /dev/null << 'EOF'
+deb http://deb.debian.org/debian bookworm main contrib non-free non-free-firmware
+deb http://deb.debian.org/debian-security bookworm-security main contrib non-free non-free-firmware
+deb http://deb.debian.org/debian bookworm-updates main contrib non-free non-free-firmware
+
+# backports are opt-in; comment out until needed:
+# deb http://deb.debian.org/debian bookworm-backports main contrib non-free non-free-firmware
+EOF
+
+
+
+
+
+
+
+
+
+Types: deb deb-src
+URIs: http://deb.debian.org/debian
+Suites: bookworm
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+Types: deb deb-src
+URIs: http://deb.debian.org/debian-security
+Suites: bookworm-security
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+Types: deb deb-src
+URIs: http://deb.debian.org/debian
+Suites: bookworm-updates
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+# backports are opt-in; comment out until needed
+Types: deb deb-src
+URIs: http://deb.debian.org/debian
+Suites: bookworm-backports
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+
+
+
+
+
+
+sudo tee /etc/apt/sources.list.d/debian.sources > /dev/null << 'EOF'
+Types: deb deb-src
+URIs: http://deb.debian.org/debian
+Suites: bookworm
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+Types: deb deb-src
+URIs: http://deb.debian.org/debian-security
+Suites: bookworm-security
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+Types: deb deb-src
+URIs: http://deb.debian.org/debian
+Suites: bookworm-updates
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+# backports are opt-in; comment out until needed
+Types: deb deb-src
+URIs: http://deb.debian.org/debian
+Suites: bookworm-backports
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+EOF
+
+
