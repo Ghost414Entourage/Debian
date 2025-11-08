@@ -9,3 +9,32 @@ sudo apt update && sudo apt install -y \
     libssl-dev \
     libsqlite3-dev \
     zlib1g-dev
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+# Create project directory 
+
+sudo mkdir -p /opt/miniagent 
+sudo chown $USER:$USER /opt/miniagent   
+
+# or system user later 
+
+# Create venv 
+python3 -m venv /opt/miniagent/venv 
+
+# Activate (interactive shell) 
+
+source /opt/miniagent/venv/bin/activate 
+
+# Upgrade packaging tools inside the venv 
+
+pip install --upgrade pip setuptools wheel
+pip freeze > requirements.txt
+
+pip install pip-tools 
+pip-compile requirements.in 
+pip-sync
+
+
