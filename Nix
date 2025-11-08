@@ -1,0 +1,139 @@
+sh <(curl -L https://nixos.org/nix/install) --daemon
+
+. ~/.nix-profile/etc/profile.d/nix.sh
+
+nix --version
+
+sudo apt update
+sudo apt install curl sudo
+
+
+mkdir -p ~/.config/nix
+
+echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
+
+nix-channel --add https://nixos.org/channels/nixos-24.05 nixpkgs
+
+nix-channel --update
+
+
+mkdir nix-test
+cd nix-test
+
+nano shell.nix
+
+
+{ pkgs ? import <nixpkgs> {} }:
+pkgs.mkShell {
+  buildInputs = [ pkgs.nodejs_20 ];
+}
+
+
+
+nix-shell
+
+node --version
+
+
+nix doctor
+
+sudo apt install ca-certificates
+sudo update-ca-certificates
+
+sudo systemctl status nix-daemon.service
+
+ls /nix/store
+
+nix path-info --all
+
+touch shell.nix
+
+nano shell.nix
+
+{ pkgs ? import <nixpkgs> {} }:
+pkgs.mkShell {
+  buildInputs = [ pkgs.nodejs_20 ];
+}
+
+nix-shell
+
+which node
+
+exit
+
+nix-collect-garbage
+
+nix-collect-garbage -d
+
+https://search.nixos.org/packages
+
+
+
+echo '{ pkgs ? import <nixpkgs> {} }:
+pkgs.mkShell {
+  buildInputs = [
+    pkgs.nodejs_20
+    pkgs.yarn
+  ];
+}' > shell.nix
+
+
+
+nix-shell
+
+node --version
+yarn --version
+
+
+nix search nixpkgs node
+
+nix shell nixpkgs#<package>
+nix shell nixpkgs#python
+
+nix-env -qaP node
+
+
+
+Installing packages into your user profile
+
+nix-env -iA nixpkgs.nodejs_20
+
+node --version
+
+
+Quick development shell (no files needed)
+
+nix-shell -p nodejs_20 yarn
+
+node --version
+yarn --version
+
+
+{ pkgs ? import <nixpkgs> {} }:
+pkgs.mkShell {
+  buildInputs = [
+    pkgs.nodejs_20
+    pkgs.yarn
+  ];
+}
+
+
+nix-shell
+
+nix build -f shell.nix
+
+nix search nixpkgs nodejs
+
+ls -lah ~/.nix-profile
+ls -lah ~/.nix-profile/bin
+readlink -f ~/.nix-profile/bin/node
+
+nix-channel --update
+
+nix-collect-garbage
+
+
+
+
+
+
