@@ -1,0 +1,49 @@
+sudo apt install flatpak
+
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+flatpak install flathub org.gimp.GIMP
+
+flatpak run org.gimp.GIMP
+
+flatpak update
+
+flatpak update org.gimp.GIMP
+
+flatpak uninstall org.gimp.GIMP
+
+flatpak override --show org.gimp.GIMP
+
+flatpak override --nofilesystem=home org.gimp.GIMP
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+sudo apt install snapd
+
+sudo systemctl enable --now snapd.socket
+
+sudo snap install gimp
+
+sudo snap refresh
+
+sudo snap refresh gimp
+
+sudo snap remove gimp
+
+snap connections gimp
+
+sudo snap connect gimp:removable-media
+
+sudo snap disconnect gimp:removable-media
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+AppImages are typically distributed as single files that can be downloaded from an application's website or a central repository like AppImageHub (https://appimage.github.io/).
+
+chmod +x path/to/application.AppImage
+
+./path/to/application.AppImage
+
+wget "https://github.com/AppImage/appimaged/releases/download/continuous/appimaged-x86_64.AppImage"
+
