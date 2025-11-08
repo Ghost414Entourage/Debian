@@ -107,3 +107,13 @@ Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
 EOF
 
 
+
+
+Include bookworm-security so you receive timely CVE fixes.  
+
+bookworm-updates pulls important fixes that must ship before the next point release.  
+
+Only un‑comment bookworm-backports when you intend to install specific newer packages.  
+
+Add components you actually use; leaving out unneeded non-free* reduces noise and risk.
+
