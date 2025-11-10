@@ -1,0 +1,5 @@
+sudo apt update
+sudo apt install build-essential linux-source bc kmod cpio flex libncurses5-dev libelf-dev libssl-dev dwarves bison
+
+sudo apt-get source linux-image-$(uname -r)
+
