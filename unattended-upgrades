@@ -1,0 +1,5 @@
+sudo apt install -y unattended-upgrades apt-listchanges && dpkg-reconfigure --priority=low unattended-upgrades  
+
+sudo apt install -y kpatch 
+sudo kpatch auto  enable
+
