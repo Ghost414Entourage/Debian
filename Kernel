@@ -6,6 +6,9 @@ sudo apt-get source linux-image-$(uname -r)
 tar xf linux-*.tar.xz
 cd linux-*
 
+ls -l /boot | grep 6.1.0-40-cloud
+
+
 cp /boot/config-$(uname -r) .config
 
 make menuconfig
