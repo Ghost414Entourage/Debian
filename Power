@@ -1,0 +1,17 @@
+The ipmitool command is a powerful utility for managing and monitoring hardware in a server. It communicates with the Intelligent Platform Management Interface (IPMI) to retrieve server health and status information, including the status of the power supplies.
+
+To check the status of the power supplies using ipmitool, use the following 
+
+sudo ipmitool power supply status
+
+sudo ipmitool sdr type "Power Supply"
+
+sudo ipmitool chassis status
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+The lshw (List Hardware) command is another tool that can help you gather hardware information. It can give you an overview of your system's hardware configuration, including power supply details.
+
+sudo lshw -class power
+
