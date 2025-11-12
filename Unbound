@@ -6,7 +6,8 @@ sudo nano /etc/apt/sources.list.d/ubuntu.sources
 
 Change http:// into https:// 
 
-sudo apt update sudo apt install unbound -y 
+sudo apt update 
+sudo apt install unbound -y 
 sudo nano /etc/unbound/unbound.conf 
 
 server: 
