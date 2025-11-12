@@ -25,8 +25,9 @@ sudo apt install -y mariadb-server python3-pymysql
 
 sudo mysql_secure_installation 
 
-Create an OpenStack database: CREATE DATABASE keystone;
+Create an OpenStack database: 
 
+CREATE DATABASE keystone;
 GRANT ALL PRIVILEGES ON keystone.* TO 'keystone'@'localhost' IDENTIFIED BY 'KEYSTONE_DBPASS';
 GRANT ALL PRIVILEGES ON keystone.* TO 'keystone'@'%' IDENTIFIED BY 'KEYSTONE_DBPASS'; 
 
@@ -42,11 +43,20 @@ connection = mysql+pymysql://keystone:KEYSTONE_DBPASS@controller/keystone
 
 
 
+Populate the Keystone database:
+
 
 sudo su -s /bin/sh -c "keystone-manage db_sync" keystone
 
+
+Initialize Fernet key repositories:
+
 sudo keystone-manage fernet_setup --keystone-user keystone --keystone-group keystone
 sudo keystone-manage credential_setup --keystone-user keystone --keystone-group keystone
+
+
+Bootstrap the Identity service:
+
 
 sudo keystone-manage bootstrap --bootstrap-password ADMIN_PASS \
   --bootstrap-admin-url http://controller:5000/v3/ \
@@ -61,6 +71,9 @@ Configure the Apache web server: Edit the /etc/apache2/apache2.conf file and add
 ServerName controller
 
 
+
+
+Restart the Apache service:
 
 sudo systemctl restart apache2
 
