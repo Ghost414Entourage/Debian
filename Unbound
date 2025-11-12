@@ -1,0 +1,80 @@
+
+
+sudo echo "nameserver 1.1.1.1" | sudo tee /etc/resolv.conf 
+
+sudo nano /etc/apt/sources.list.d/ubuntu.sources 
+
+Change http:// into https:// 
+
+sudo apt update sudo apt install unbound -y 
+sudo nano /etc/unbound/unbound.conf 
+
+server: 
+interface: 127.0.0.1 
+access-control: 127.0.0.0/8 
+allow do-ip4: yes 
+do-udp: yes 
+do-tcp: yes 
+verbosity: 1
+
+forward-zone: 
+
+name: "." 
+forward-tls-upstream: yes 
+forward-addr: 1.1.1.1@853
+
+
+
+
+
+sudo nano /etc/unbound/unbound.conf.d/dns-over-tls.conf 
+
+server: 
+
+verbosity: 1 
+interface: 127.0.0.1 
+access-control: 127.0.0.0/8 
+allow 
+do-ip4: yes 
+do-udp: yes 
+do-tcp: yes 
+prefer-ip6: no 
+use-syslog: yes 
+hide-identity: yes 
+hide-version: yes
+harden-glue: yes 
+harden-dnssec-stripped: yes 
+cache-min-ttl: 3600 
+cache-max-tll: 86400 
+prefetch: yes 
+qname-minimisation: yes 
+rrset-roundrobin: yes 
+minimal-responses: yes 
+
+forward-zone: 
+name: "." forward-tls-upstream: yes 
+forward-addr: 1.1.1.1@853 
+forward-addr: 9.9.9.9@853 
+forward-addr: 8.8.8.8@853
+
+
+
+
+sudo echo "nameserver 127.0.0.1" | sudo tee /etc/resolv.conf 
+
+sudo chattr +i /etc/resolv.conf
+
+
+
+
+
+Checking and changing permissions for unbound only when it is not connecting with the internet then restart the unbound at the end. 
+
+sudo systemctl status unbound 
+sudo systemctl stop unbound 
+sudo systemctl status unbound 
+sudo systemctl start unbound
+
+
+
+
