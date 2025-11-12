@@ -1,0 +1,16 @@
+sudo apt update
+sudo apt upgrade -y
+sudo apt install -y software-properties-common 
+
+Add the OpenStack repository: 
+
+sudo add-apt-repository cloud-archive:yoga 
+
+Update the package list: 
+
+sudo apt update 
+
+Install the OpenStack client: 
+
+sudo apt install -y python3-openstackclient
+
