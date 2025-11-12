@@ -1,0 +1,12 @@
+Install and run rkhunter: 
+
+sudo apt install rkhunter -y 
+
+sudo rkhunter --update 
+
+sudo rkhunter –checkall 
+
+Inspect logs: 
+
+/var/log/rkhunter.log
+
