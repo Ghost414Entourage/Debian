@@ -224,4 +224,17 @@ sudo apt update
 
 
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+PPAs are repositories maintained by individual developers or teams, primarily used in Ubuntu and its derivatives. They provide a way to distribute software not included in the official repositories. 
+
+Adding a PPA: 
+
+sudo add-apt-repository ppa:username/ppa-name 
+
+Removing a PPA: sudo add-apt-repository --remove ppa:username/ppa-name
+
 
