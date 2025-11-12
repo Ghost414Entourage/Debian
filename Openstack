@@ -1,3 +1,5 @@
+Update the system and install necessary packages:
+
 sudo apt update
 sudo apt upgrade -y
 sudo apt install -y software-properties-common 
@@ -14,3 +16,64 @@ Install the OpenStack client:
 
 sudo apt install -y python3-openstackclient
 
+
+
+
+Install and configure the database server (MySQL): 
+
+sudo apt install -y mariadb-server python3-pymysql
+
+sudo mysql_secure_installation 
+
+Create an OpenStack database: CREATE DATABASE keystone;
+
+GRANT ALL PRIVILEGES ON keystone.* TO 'keystone'@'localhost' IDENTIFIED BY 'KEYSTONE_DBPASS';
+GRANT ALL PRIVILEGES ON keystone.* TO 'keystone'@'%' IDENTIFIED BY 'KEYSTONE_DBPASS'; 
+
+
+Install and configure the Keystone identity service: 
+
+sudo apt install -y keystone 
+
+Edit the /etc/keystone/keystone.conf file and set the database connection: 
+
+[database]
+connection = mysql+pymysql://keystone:KEYSTONE_DBPASS@controller/keystone
+
+
+
+
+sudo su -s /bin/sh -c "keystone-manage db_sync" keystone
+
+sudo keystone-manage fernet_setup --keystone-user keystone --keystone-group keystone
+sudo keystone-manage credential_setup --keystone-user keystone --keystone-group keystone
+
+sudo keystone-manage bootstrap --bootstrap-password ADMIN_PASS \
+  --bootstrap-admin-url http://controller:5000/v3/ \
+  --bootstrap-internal-url http://controller:5000/v3/ \
+  --bootstrap-public-url http://controller:5000/v3/ \
+  --bootstrap-region-id RegionOne
+
+
+
+Configure the Apache web server: Edit the /etc/apache2/apache2.conf file and add: 
+
+ServerName controller
+
+
+
+sudo systemctl restart apache2
+
+
+Create OpenStack client environment scripts: Create an admin-openrc file with the following content: 
+
+export OS_PROJECT_DOMAIN_NAME=Default
+export OS_USER_DOMAIN_NAME=Default
+export OS_PROJECT_NAME=admin
+export OS_USERNAME=admin
+export OS_PASSWORD=ADMIN_PASS
+export OS_AUTH_URL=http://controller:5000/v3
+export OS_IDENTITY_API_VERSION=3
+export OS_IMAGE_API_VERSION=2
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
