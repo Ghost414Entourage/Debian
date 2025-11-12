@@ -328,4 +328,11 @@ GRUB_CMDLINE_LINUX_DEFAULT="quiet splash nomodeset"
 sudo update-grub
 
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+●      /etc/bash.bashrc: This is the global configuration file for the Bash shell. It is executed for every interactive shell session, making it ideal for setting system-wide preferences like environment variables, aliases, and functions. 
+
+●      /etc/profile: Another global configuration file, executed for login shells. It is typically used to set system-wide environment variables.
+
 
