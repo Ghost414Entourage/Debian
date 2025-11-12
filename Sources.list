@@ -335,4 +335,8 @@ sudo update-grub
 
 ●      /etc/profile: Another global configuration file, executed for login shells. It is typically used to set system-wide environment variables.
 
+●      ~/.bashrc: This is the user-specific configuration file for Bash. It is executed whenever a new interactive shell session is started. You can use this file to set user-specific aliases, functions, environment variables, and prompt settings. 
 
+●      ~/.bash_profile: This file is executed for login shells. If it exists, it will be executed first, followed by ~/.bashrc (if it's not explicitly sourced). ●      ~/.profile: This file is similar to ~/.bash_profile but is more generic and can be used with different shells. It is executed for login shells and can be used to set environment variables.
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
