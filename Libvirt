@@ -13,6 +13,8 @@ At its core, Libvirt communicates with the virtualization hypervisor and exposes
 
 sudo apt update 
 sudo apt install qemu-kvm bridge-utils virt-manager libvirt-daemon-system libvirt-daemon libvirt-clients qemu-system-x86 dbus
+sudo apt install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virtinst virt-manager
+
 
 sudo systemctl enable libvirtd
 sudo systemctl restart libvirtd
@@ -32,4 +34,10 @@ apt install qemu-kvm qemu-system
 
 
 Virt-Manager is a graphical user interface (GUI) that simplifies the process of managing virtual machines through Libvirt. It provides a rich, user-friendly interface to create, start, stop, and configure VMs, networks, and storage. Virt-Manager is highly useful for administrators who prefer managing their virtual machines through a GUI instead of the command line.
+
+
+
+
+sudo apt update
+sudo apt install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virtinst virt-manager
 
