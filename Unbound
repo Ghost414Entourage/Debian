@@ -138,5 +138,20 @@ sudo systemctl restart unbound
 sudo systemctl status unbound
 
 
+sudo systemctl stop systemd-resolved
+sudo systemctl disable systemd-resolved
+sudo systemctl mask systemd-resolved
+
+sudo rm /etc/resolv.conf
+sudo tee /etc/resolv.conf > /dev/null <<EOF
+nameserver 127.0.0.1
+EOF
+
+
+
+dig @127.0.0.1 google.com
+dig @127.0.0.1 example.com
+
+
 
 
