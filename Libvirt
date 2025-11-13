@@ -8,7 +8,8 @@ Libvirt is an open-source API, daemon, and management tool for managing virtuali
 
 At its core, Libvirt communicates with the virtualization hypervisor and exposes APIs to manage VMs, networks, and storage. It can be used via command-line tools or graphical interfaces like Virt-Manager.
 
-sudo apt update sudo apt install libvirt-bin qemu-kvm bridge-utils virt-manager
+sudo apt update 
+sudo apt install libvirt-bin qemu-kvm bridge-utils virt-manager
 
 sudo systemctl enable libvirtd
 sudo systemctl restart libvirtd
