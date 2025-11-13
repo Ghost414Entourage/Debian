@@ -101,3 +101,126 @@ sudo systemctl enable bind9
 sudo systemctl start bind9
 sudo systemctl status bind9
 
+
+
+
+
+sudo tee /etc/bind/named.conf.options > /dev/null << 'EOF'
+options {
+    directory "/var/cache/bind";
+
+    recursion yes;
+    allow-recursion { trusted; };
+
+    listen-on { 10.128.0.6; };
+    allow-transfer { none; };
+
+    forwarders {
+        8.8.8.8;
+        8.8.4.4;
+    };
+
+    dnssec-validation auto;
+
+    listen-on-v6 { any; };
+};
+
+acl "trusted" {
+    10.128.0.0/16;
+    localhost;
+};
+EOF
+
+
+sudo systemctl restart named
+
+
+sudo ss -tulpn | grep named
+
+
+dig @10.128.0.6 example.com
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+sudo tee /etc/systemd/resolved.conf > /dev/null << 'EOF'
+[Resolve]
+DNS=10.128.0.6
+FallbackDNS=
+Domains=~.
+DNSSEC=yes
+EOF
+
+sudo systemctl restart systemd-resolved
+
+resolvectl status
+
+
+
+
+
+sudo mkdir -p /etc/systemd/resolved.conf.d
+
+
+sudo tee /etc/systemd/resolved.conf.d/dns.conf > /dev/null << 'EOF'
+[Resolve]
+DNS=10.128.0.6
+FallbackDNS=
+Domains=~.
+DNSSEC=yes
+EOF
+
+sudo systemctl restart systemd-resolved
+
+resolvectl status
+
+
+
+
+
+sudo mkdir -p /etc/systemd/network
+
+
+sudo tee /etc/systemd/network/10-ens4.network > /dev/null << 'EOF'
+[Match]
+Name=ens4
+
+[Network]
+DNS=10.128.0.6
+Domains=~.
+
+[DHCP]
+UseDNS=false
+EOF
+
+
+sudo systemctl restart systemd-networkd
+sudo systemctl restart systemd-resolved
+
+
+resolvectl status
+
+
+
+
+
+sudo cp /etc/systemd/resolved.conf.d/gce-resolved.conf /etc/systemd/resolved.conf.d/gce-resolved.conf.bak
+
+
+sudo tee /etc/systemd/resolved.conf.d/gce-resolved.conf > /dev/null << 'EOF'
+# Google Cloud adjusted resolver options—modified to allow custom DNS
+[Resolve]
+
+# Preserve route-only '.local' behavior
+Domains=~local
+
+# Disable mDNS per Google's original settings
+MulticastDNS=false
+
+# Remove forced metadata DNS:
+# DNS=169.254.169.254
+EOF
+
+
