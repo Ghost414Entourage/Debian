@@ -85,3 +85,58 @@ sudo systemctl start unbound
 
 
 
+
+sudo apt-get install unbound
+
+
+
+
+sudo tee /etc/unbound/unbound.conf > /dev/null << 'EOF'
+server:
+    verbosity: 1
+    interface: 0.0.0.0
+    port: 53
+    do-ip4: yes
+    do-ip6: no
+    do-udp: yes
+    do-tcp: yes
+
+    # Allow local and VPC clients
+    access-control: 127.0.0.1/32 allow
+    access-control: 10.128.0.0/16 allow
+
+    root-hints: "/var/lib/unbound/root.hints"
+    hide-identity: yes
+    hide-version: yes
+
+forward-zone:
+    name: "."
+    forward-addr: 8.8.8.8
+    forward-addr: 8.8.4.4
+EOF
+
+
+
+sudo wget https://www.internic.net/domain/named.root -O /var/lib/unbound/root.hints
+
+
+internic.net is one of the long-standing, official domains operated under the authority of ICANN / IANA, the organizations responsible for coordinating the global DNS root zone.
+
+
+sudo systemctl enable unbound
+sudo systemctl restart unbound
+sudo systemctl start unbound
+sudo systemctl status unbound
+
+
+
+sudo systemctl stop named
+sudo systemctl disable named
+
+
+sudo systemctl restart unbound
+sudo systemctl status unbound
+
+
+
+
