@@ -1,4 +1,103 @@
 sudo apt install bind9 bind9utils bind9-doc 
+sudo apt-get install bind9 bind9utils bind9-doc
 
-sudo systemctl enable named sudo nano /etc/bind/named.conf.options write below rules and save it by ctl + s and then close the file by ctl + x.
+sudo nano /etc/bind/named.conf.options
+
+
+sudo tee /etc/bind/named.conf.options > /dev/null << 'EOF'
+options {
+    directory "/var/cache/bind";
+
+    recursion yes;
+    allow-recursion { trusted; };
+
+    listen-on { 192.168.1.100; };
+    allow-transfer { none; };
+
+    forwarders {
+        8.8.8.8;
+        8.8.4.4;
+    };
+
+    dnssec-validation auto;
+
+    listen-on-v6 { any; };
+};
+
+acl "trusted" {
+    192.168.1.0/24;
+    localhost;
+};
+EOF
+
+
+
+
+sudo tee /etc/bind/named.conf.local > /dev/null << 'EOF'
+zone "example.com" {
+    type master;
+    file "/etc/bind/zones/db.example.com";
+};
+
+zone "1.168.192.in-addr.arpa" {
+    type master;
+    file "/etc/bind/zones/db.192";
+};
+EOF
+
+
+
+
+
+sudo mkdir -p /etc/bind/zones
+
+
+
+
+
+
+sudo tee /etc/bind/zones/db.example.com > /dev/null << 'EOF'
+$TTL    604800
+@       IN      SOA     ns1.example.com. admin.example.com. (
+                        3         ; Serial
+                        604800    ; Refresh
+                        86400     ; Retry
+                        2419200   ; Expire
+                        604800 )  ; Negative Cache TTL
+
+@       IN      NS      ns1.example.com.
+@       IN      A       192.168.1.100
+ns1     IN      A       192.168.1.100
+www     IN      A       192.168.1.100
+EOF
+
+
+
+
+
+
+
+sudo tee /etc/bind/zones/db.192 > /dev/null << 'EOF'
+$TTL    604800
+@       IN      SOA     ns1.example.com. admin.example.com. (
+                        3         ; Serial
+                        604800    ; Refresh
+                        86400     ; Retry
+                        2419200   ; Expire
+                        604800 )  ; Negative Cache TTL
+
+@       IN      NS      ns1.example.com.
+100     IN      PTR     ns1.example.com.
+EOF
+
+
+
+sudo named-checkconf
+sudo named-checkzone example.com /etc/bind/zones/db.example.com
+sudo named-checkzone 1.168.192.in-addr.arpa /etc/bind/zones/db.192
+
+sudo systemctl restart bind9
+sudo systemctl enable bind9
+sudo systemctl start bind9
+sudo systemctl status bind9
 
