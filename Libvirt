@@ -10,3 +10,7 @@ At its core, Libvirt communicates with the virtualization hypervisor and exposes
 
 sudo apt update sudo apt install libvirt-bin qemu-kvm bridge-utils virt-manager
 
+sudo systemctl enable libvirtd
+sudo systemctl restart libvirtd
+sudo systemctl start libvirtd
+sudo systemctl status libvirtd
