@@ -1,0 +1,4 @@
+sudo apt install bind9 bind9utils bind9-doc 
+
+sudo systemctl enable named sudo nano /etc/bind/named.conf.options write below rules and save it by ctl + s and then close the file by ctl + x.
+
