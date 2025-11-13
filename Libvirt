@@ -1,2 +1,4 @@
 Libvirt is an open-source API, daemon, and management tool for managing virtualized platforms. It works with various virtualization technologies, such as KVM (Kernel-based Virtual Machine), QEMU (Quick Emulator), Xen, and LXC (Linux Containers). Libvirt provides a unified interface to control these technologies, making it easier to manage virtual machines.
 
+At its core, Libvirt communicates with the virtualization hypervisor and exposes APIs to manage VMs, networks, and storage. It can be used via command-line tools or graphical interfaces like Virt-Manager.
+
