@@ -1,0 +1,31 @@
+sudo apt update
+sudo apt install lxc lxc-templates
+
+To create a new LXC container: 
+
+sudo lxc-create -n mycontainer -t debian
+
+Start the container: 
+
+sudo lxc-start -n mycontainer
+
+Access the container: 
+
+sudo lxc-attach -n mycontainer
+
+
+
+Resource limits: Edit the container's configuration file (/var/lib/lxc/mycontainer/config) to set resource limits:
+
+lxc.cgroup.memory.limit_in_bytes = 512M
+lxc.cgroup.cpu.shares = 512
+
+
+
+Network configuration: Set up a bridge for containers:
+
+lxc.net.0.type = veth
+lxc.net.0.link = lxcbr0
+lxc.net.0.flags = up
+lxc.net.0.hwaddr = 00:16:3e:xx:xx:xx
+
