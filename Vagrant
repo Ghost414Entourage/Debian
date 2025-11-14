@@ -1,0 +1,17 @@
+curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+sudo apt update && sudo apt install vagrant
+
+mkdir ~/vagrant-project
+cd ~/vagrant-project
+
+vagrant init ubuntu/focal64
+
+Start the virtual machine: 
+
+vagrant up
+
+SSH into the running machine: 
+
+vagrant ssh
+
