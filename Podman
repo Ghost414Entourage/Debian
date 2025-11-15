@@ -150,6 +150,7 @@ podman volume prune
 
 podman system prune --volumes
 
+podman system reset
 
 
 
