@@ -103,4 +103,20 @@ you would reach SearXNG at http://localhost:9000, even though the container stil
 
 
 
+podman pull docker.io/searxng/searxng
+
+
+podman run --rm -d -p 8080:8080 searxng/searxng
+
+
+podman run --rm -d \
+  --network my-network \
+  -p 8080:8080 \
+  searxng/searxng
+
+
+
+
+
+
 
