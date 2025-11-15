@@ -100,3 +100,56 @@ virsh vol-delete vm-disk.qcow2 --pool mypool
 
 Nested virtualization refers to running a hypervisor  inside a virtual machine. In other words, you can  create virtual machines within a VM, which itself  runs on a physical hypervisor. 
 
+
+echo "options kvm-intel nested=1" | sudo tee  /etc/modprobe.d/kvm-intel.conf 
+
+modprobe -r kvm_intel
+modprobe kvm_intel
+
+
+cat /sys/module/kvm_intel/parameters/nested 
+
+sudo modprobe kvm  
+sudo modprobe kvm_intel #for Intel processors  
+sudo modprobe kvm_amd #for AMD processors 
+
+Intel VT-x  Intel Virtualization Technology (VT-x) extends the  x86 instruction set to support virtualization. It  enables the hypervisor to run virtual machines with  minimal performance penalties. Without VT-x,  virtualization software may fall back on slower  emulation methods. 
+
+AMD-V  AMD Virtualization (AMD-V) provides similar  functionality on AMD processors. Like VT-x, it adds  instructions that allow efficient execution of  virtualized workloads. 
+
+
+egrep -c '(vmx|svm)' /proc/cpuinfo 
+
+If the output is greater than zero, your CPU  supports hardware virtualization.  
+
+○ vmx corresponds to Intel VT-x.  
+○ svm corresponds to AMD-V. 
+
+lscpu | grep Virtualization 
+
+
+Using the BIOS/UEFI: Enter your system’s  BIOS or UEFI firmware settings during boot  (often by pressing Del, F2, or F10). Look for  settings labeled Intel VT-x, Intel  Virtualization Technology, SVM (for AMD),  or similar. Ensure they are enabled. 
+
+
+
+
+lsmod | grep kvm  
+
+If they are not loaded automatically at boot, you can  add them to the /etc/modules file (on  Debian/Ubuntu) or configure the appropriate system  service on Red Hat-based distributions. 
+
+sudo usermod -aG kvm $USER  
+sudo usermod -aG libvirt $USER 
+
+
+sudo systemctl start libvirtd  
+
+sudo systemctl enable libvirtd 
+
+
+Type 1 hypervisors run directly on the host’s  physical hardware without requiring a host operating system. Because they have direct access to the  hardware, they generally offer higher performance,  better scalability, and more advanced security  features than Type 2 hypervisors.  Examples of Type 1 hypervisors include VMware  ESXi, Microsoft Hyper-V in its bare-metal form, and  Xen. In the Linux ecosystem, KVM is sometimes  classified as a Type 1 hypervisor because it integrates  directly into the Linux kernel, though it requires a  Linux host to function. 
+
+Type 2 hypervisors run on top of a conventional host  operating system. The hypervisor functions as an  application that leverages the host OS to access  hardware resources. Examples include Oracle  VirtualBox, VMware Workstation, and Parallels  Desktop.  Because they depend on a host OS, Type 2  hypervisors introduce an extra layer between the  hardware and the virtual machines. This usually  results in slightly lower performance compared to  Type 1 hypervisors, but they are much easier to set  up and use. 
+
+
+
+
