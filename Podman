@@ -143,5 +143,12 @@ podman volume ls
 podman volume rm myvolume
 
 
+podman run -v myvolume:/data ubuntu
+
+
+podman volume prune
+
+
+
 
 
