@@ -148,6 +148,7 @@ podman run -v myvolume:/data ubuntu
 
 podman volume prune
 
+podman system prune --volumes
 
 
 
