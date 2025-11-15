@@ -25,3 +25,11 @@ sudo wget -O /var/lib/libvirt/images/debian-12.11.0-amd64-netinst.iso \
 
 
 
+
+Virtual Disk Formats (qcow2, raw, vmdk)  
+
+
+Virtual disks are files that act like physical hard  drives for virtual machines. When a VM boots, the  hypervisor presents the virtual disk as though it were  a real drive, but behind the scenes it is simply reading  and writing to a file on the host system. The format  of this file determines how the virtual disk behaves  in terms of performance, features, and compatibility. 
+
+
+
