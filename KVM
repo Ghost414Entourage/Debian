@@ -150,6 +150,17 @@ Type 1 hypervisors run directly on the host’s  physical hardware without requi
 
 Type 2 hypervisors run on top of a conventional host  operating system. The hypervisor functions as an  application that leverages the host OS to access  hardware resources. Examples include Oracle  VirtualBox, VMware Workstation, and Parallels  Desktop.  Because they depend on a host OS, Type 2  hypervisors introduce an extra layer between the  hardware and the virtual machines. This usually  results in slightly lower performance compared to  Type 1 hypervisors, but they are much easier to set  up and use. 
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+sudo qemu-img create -f qcow2 /var/lib/libvirt/images/ubuntu.qcow2 40G
+
+sudo qemu-img create -f qcow2 /var/lib/libvirt/images/debian.qcow2 40G
+
+This is the proper layout for KVM/libvirt.
+Here’s what each file actually does:
+*.iso → installer media (like a virtual DVD)
+*.qcow2 → the VM’s virtual hard drive
 
 
 
