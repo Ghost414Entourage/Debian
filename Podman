@@ -73,3 +73,34 @@ Important Options for Container Creation and Running
 
 --name: Assign a name to the container.
 
+
+
+
+Interactive mode: 
+
+podman run -it ubuntu:latest /bin/bash
+
+
+Detached mode: 
+
+podman run -d nginx:latest
+
+
+With port mapping: 
+
+podman run -d -p 8080:80 nginx:latest
+
+
+
+The left side is yours — the host machine.
+The right side is the port inside the container.
+So in:
+-p 8080:8080
+the first 8080 is your machine’s port, the second 8080 is the container’s port.
+If you did:
+-p 9000:8080
+you would reach SearXNG at http://localhost:9000, even though the container still thinks it’s serving on port 8080 internally.
+
+
+
+
