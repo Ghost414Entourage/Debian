@@ -51,3 +51,25 @@ podman network ls
 # Remove a network
 podman network rm my-network
 
+
+
+
+
+
+
+Important Options for Container Creation and Running 
+
+-d, --detach: Run the container in the background. 
+
+-i, --interactive: Keep STDIN open even if not attached. 
+
+-t, --tty: Allocate a pseudo-TTY. 
+
+-p, --publish: Publish a container's port to the host. 
+
+-v, --volume: Bind mount a volume. -e, 
+
+--env: Set environment variables. 
+
+--name: Assign a name to the container.
+
