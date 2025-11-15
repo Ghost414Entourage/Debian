@@ -31,5 +31,65 @@ Virtual Disk Formats (qcow2, raw, vmdk)
 
 Virtual disks are files that act like physical hard  drives for virtual machines. When a VM boots, the  hypervisor presents the virtual disk as though it were  a real drive, but behind the scenes it is simply reading  and writing to a file on the host system. The format  of this file determines how the virtual disk behaves  in terms of performance, features, and compatibility. 
 
+The raw format is the simplest virtual disk format. A  raw disk image is essentially a byte-for-byte  representation of a physical disk. It does not include  compression, snapshots, or advanced features. What  you see is what you get. 
 
+The qcow2 (QEMU Copy-On-Write version 2)  format is the most common format used in KVM  environments. It adds significant functionality on top  of what raw provides. 
+
+The vmdk (Virtual Machine Disk) format was  developed by VMware and is widely used in  VMware products like Workstation, ESXi, and  Fusion. However, it is also supported by QEMU and  KVM. 
+
+
+
+
+Creating Virtual Disks  The qemu-img tool is the most versatile way to create  disk images. It supports multiple formats and allows  you to define size and format options. 
+
+qemu-img create -f qcow2  /var/lib/libvirt/images/vm1.qcow2 20G 
+
+qemu-img create -f raw  /var/lib/libvirt/images/vm2.raw 20G 
+
+qemu-img create -f vmdk  /var/lib/libvirt/images/vm3.vmdk 20G 
+
+
+
+
+qemu-img resize /var/lib/libvirt/images/vm1.qcow2  +10G 
+
+After resizing the image, you must also extend the  filesystem inside the VM to use the additional space.  For Linux guests, this often involves resizing the  partition with fdisk or parted and then extending the  filesystem with tools like resize2fs or xfs_growfs. 
+
+Example for ext4 filesystem:  sudo resize2fs /dev/sda1  
+
+Example for XFS filesystem:  sudo xfs_growfs/ 
+
+
+
+
+
+
+
+
+Types of storage pools:  
+
+● Dir pool: A simple directory where disk  images are stored.  
+● LVM pool: Logical volumes created in an  LVM volume group.  
+● iSCSI pool: Network-based storage using  iSCSI protocol.  
+● NFS pool: Remote storage shared via NFS.  
+● ZFS pool: Based on ZFS datasets. 
+
+Creating a directory-based pool:  
+
+virsh pool-define-as mypool dir --target  
+/var/lib/libvirt/images/mypool  
+virsh pool-build mypool  
+virsh pool-start mypool  
+virsh pool-autostart mypool 
+
+
+Within a pool, volumes are individual storage units  that correspond to virtual disks. For example, in a  directory pool, each qcow2 or raw file is a volume. 
+
+virsh vol-create-as mypool vm-disk.qcow2 20G --  format qcow2 
+
+This creates a 20 GB qcow2 disk in the mypool  storage pool. 
+
+virsh vol-list mypool 
+
+virsh vol-delete vm-disk.qcow2 --pool mypool 
 
