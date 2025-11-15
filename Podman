@@ -13,3 +13,26 @@ nano /etc/containers/registries.conf
 [registries.search]
 registries = ['docker.io', 'quay.io', 'registry.fedoraproject.org']
 
+
+Edit the /etc/containers/storage.conf file to customize storage options, such as the driver or location of container images.
+
+
+Podman uses CNI (Container Network Interface) plugins for networking. Ensure the necessary plugins are installed: 
+
+sudo apt install containernetworking-plugins 
+
+Adjust system limits to allow non-root users to run more containers: 
+
+echo "user.max_user_namespaces=28633" | sudo tee -a /etc/sysctl.d/userns.conf
+sudo sysctl -p /etc/sysctl.d/userns.conf
+
+
+
+sudo podman completion bash | sudo tee /etc/bash_completion.d/podman
+
+If you're transitioning from Docker, you can create aliases to use Podman commands with the docker prefix:
+
+echo "alias docker=podman" >> ~/.bashrc
+source ~/.bashrc
+
+
