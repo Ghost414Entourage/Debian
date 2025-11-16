@@ -254,5 +254,26 @@ sha256sum proxmox.iso
 https://download.proxmox.com/iso/
 
 
+sudo virsh destroy proxmox-ve 2>/dev/null
+sudo virsh undefine proxmox-ve --nvram 2>/dev/null
+
+
+sudo qemu-img create -f qcow2 proxmox.qcow2 60G
+
+
+
+
+sudo virt-install \
+  --name proxmox-ve \
+  --memory 4096 \
+  --vcpus 2 \
+  --cpu host-passthrough \
+  --machine pc \
+  --disk path=/var/lib/libvirt/images/proxmox.qcow2,format=qcow2 \
+  --cdrom /var/lib/libvirt/images/proxmox.iso \
+  --os-variant debiantesting \
+  --network network=default \
+  --graphics vnc,listen=0.0.0.0 \
+  --noautoconsole
 
 
