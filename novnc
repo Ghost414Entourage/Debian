@@ -91,7 +91,7 @@ chmod +x ~/.vnc/xstartup
 
 
 
-vncserver
+
 vncserver :1 -geometry 1280x800 -depth 24
 
 tightvncserver -kill :1
