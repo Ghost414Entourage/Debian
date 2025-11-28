@@ -6,6 +6,10 @@ sudo apt-get install gnome-core gnome-panel task-gnome-desktop tightvncserver
 
 sudo tightvncserver
 
+
+tightvncserver -kill :1
+
+
 mkdir .vnc
 
 cd .vnc
