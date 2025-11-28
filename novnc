@@ -219,6 +219,15 @@ http://<server-ip>:6080/vnc.html
 
 
 
+sudo apt-get install lightdm -y
+sudo dpkg-reconfigure lightdm
+cat /etc/X11/default-display-manager
+
+
+
+sudo systemctl enable lightdm
+sudo systemctl start lightdm
+
 
 
 
@@ -257,5 +266,33 @@ apt-get install -y libx11-6 xkb-data x11-xkb-utils xauth libfile-readbackwards-p
 
 
 apt-get install -y gcc g++ make curl
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+cat /etc/X11/default-display-manager
+
+
+
+
+sudo nano /etc/gdm3/custom.conf
+
+#WaylandEnable=false
+
+sudo systemctl restart gdm3
+
+
+
+
+
+
+
+
+
+
 
 
