@@ -1,6 +1,7 @@
 egrep -c '(vmx|svm)' /proc/cpuinfo
 
 
+
 echo "options kvm-intel nested=Y" | sudo tee /etc/modprobe.d/kvm-intel.conf
 sudo modprobe -r kvm_intel
 sudo modprobe kvm_intel
@@ -14,8 +15,11 @@ sudo apt install xfce4 xfce4-goodies tightvncserver novnc websockify
 
 
 sudo apt update
-sudo apt install -y qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virt-manager
+sudo apt install -y qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virt-manager qemu-system
 sudo systemctl enable --now libvirtd
+
+
+
 
 lsmod | grep kvm
 virsh capabilities | grep -i vmx
@@ -42,3 +46,230 @@ wget https://enterprise.proxmox.com/iso/proxmox-ve_9.1-1.iso
 ls -lh proxmox-ve_9.1-1.iso
 
 sha256sum proxmox-ve_9.1-1.iso
+
+
+
+sudo apt update
+sudo apt install -y xfce4 xfce4-terminal tightvncserver novnc websockify
+
+
+sudo apt install -y firefox-esr network-manager
+
+
+
+
+
+
+nano ~/.vnc/xstartup
+
+
+#!/bin/sh
+unset SESSION_MANAGER
+unset DBUS_SESSION_BUS_ADDRESS
+xrdb $HOME/.Xresources
+startxfce4 &
+
+
+chmod +x ~/.vnc/xstartup
+
+
+touch ~/.Xauthority
+
+sudo apt update
+sudo apt install -y dbus dbus-x11
+
+sudo systemctl restart dbus
+systemctl status dbus
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+sudo nano /etc/systemd/system/vncserver@1.service
+
+
+[Unit]
+Description=VNC Server for Display :1
+After=syslog.target network.target
+
+[Service]
+Type=forking
+User=root
+PAMName=login
+PIDFile=/root/.vnc/%H:%1.pid
+ExecStart=/usr/bin/vncserver :1 -geometry 1280x800 -depth 24
+ExecStop=/usr/bin/vncserver -kill :1
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+
+
+
+sudo systemctl daemon-reload
+sudo systemctl enable vncserver@1
+sudo systemctl start vncserver@1
+
+
+
+
+
+
+
+
+
+sudo nano /etc/systemd/system/novnc.service
+
+
+
+[Unit]
+Description=noVNC WebSocket Proxy
+After=network.target vncserver@1.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/websockify --web /usr/share/novnc/ 6080 localhost:5901
+Restart=on-failure
+User=root
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+
+
+
+sudo systemctl daemon-reload
+sudo systemctl enable novnc
+sudo systemctl start novnc
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+sudo nano /etc/systemd/system/vncserver@1.service
+
+
+[Unit]
+Description=VNC Server for Display :1
+After=syslog.target network.target
+
+[Service]
+Type=forking
+User=root
+WorkingDirectory=/root
+
+ExecStart=/usr/bin/vncserver :1 -geometry 1280x800 -depth 24
+ExecStop=/usr/bin/vncserver -kill :1
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+
+sudo systemctl daemon-reload
+sudo systemctl restart vncserver@1
+sudo systemctl status vncserver@1
+
+vncserver :1
+vncserver -kill :1
+
+
+sudo systemctl enable novnc
+sudo systemctl start novnc
+systemctl status novnc
+
+
+
+vncserver -kill :1
+vncserver -kill :2  # optional, just in case
+pkill Xtightvnc     # or pkill Xvnc, depending on version
+
+
+sudo nano /etc/systemd/system/vncserver@1.service
+
+
+[Unit]
+Description=VNC Server for Display :1
+After=network.target
+
+[Service]
+Type=forking
+User=root
+WorkingDirectory=/root
+
+ExecStart=/usr/bin/vncserver :1 -geometry 1280x800 -depth 24
+ExecStop=/usr/bin/vncserver -kill :1
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+sudo systemctl daemon-reload
+sudo systemctl enable vncserver@1
+sudo systemctl restart vncserver@1
+
+systemctl status vncserver@1
+
+
+
+
+
+sudo nano /etc/systemd/system/novnc.service
+
+[Unit]
+Description=noVNC WebSocket Proxy
+After=network.target vncserver@1.service
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/bin/websockify --web /usr/share/novnc/ 6080 localhost:5901
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+
+
+sudo systemctl daemon-reload
+sudo systemctl enable novnc
+sudo systemctl start novnc
+
+
+
+https://<server-ip>:6080/vnc.html
+
+
+
+
+
+sudo apt update
+sudo apt install -y libosinfo-bin
+
+
+osinfo-query os | grep -i debian
+
+
+sudo systemctl restart libvirtd
+sudo systemctl enable libvirtd
+
+sudo virsh net-start default
+sudo virsh net-autostart default
+
+
+sudo virsh net-list --all
+
