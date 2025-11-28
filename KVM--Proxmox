@@ -251,7 +251,7 @@ sudo systemctl start novnc
 
 
 
-https://<server-ip>:6080/vnc.html
+
 
 
 
@@ -272,4 +272,12 @@ sudo virsh net-autostart default
 
 
 sudo virsh net-list --all
+
+
+
+vncserver :1 -geometry 1280x800 -depth 24
+
+websockify --web /usr/share/novnc/ 6080 localhost:5901
+
+https://<server-ip>:6080/vnc.html
 
