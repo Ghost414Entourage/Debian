@@ -10,3 +10,16 @@ Inspect logs:
 
 /var/log/rkhunter.log
 
+
+
+
+rfkill list
+
+rfkill block bluetooth
+rfkill unblock bluetooth
+
+gsettings get org.blueman.plugins.powermanager auto-power-on
+gsettings set org.blueman.plugins.powermanager auto-power-on false
+
+Systemd-rfkill
+
