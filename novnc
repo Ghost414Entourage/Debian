@@ -152,6 +152,9 @@ http://<server-ip>:6080/vnc.html
 
 ls /tmp/.X11-unix/
 
+tightvncserver -kill :1
+rm -rf /tmp/.X11-unix/X1 ~/.vnc/*.pid
+tightvncserver :1 -geometry 1280x800 -depth 24
 
 
 
