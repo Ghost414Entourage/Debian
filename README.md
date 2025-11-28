@@ -2,6 +2,10 @@
 
 https://novnc.com/noVNC/docs/EMBEDDING.html
 
+
+
+
+
 sudo apt-get install gnome-core gnome-panel task-gnome-desktop tightvncserver
 
 sudo tightvncserver
@@ -36,5 +40,22 @@ gnome-session &
 
 
 
+chmod +x ~/.vnc/xstartup
+
+
+
 
 vncserver
+vncserver :1 -geometry 1280x800 -depth 24
+
+
+
+sudo apt-get install novnc websockify
+
+
+websockify --web=/usr/share/novnc/ 6080 localhost:5901
+
+
+
+http://<server-ip>:6080/vnc.html
+
