@@ -10,7 +10,7 @@ sudo apt-get install gnome-shell gnome-session gnome-settings-daemon gnome-contr
 sudo apt install libcairo2-dev libjpeg62-turbo-dev libpng-dev libtool-bin uuid-dev libossp-uuid-dev libavcodec-dev libavformat-dev libavutil-dev libswscale-dev freerdp2-dev libpango1.0-dev libssh2-1-dev libtelnet-dev libvncserver-dev libwebsockets-dev libpulse-dev libssl-dev libvorbis-dev libwebp-dev 
 
 sudo apt install dbus* 
-
+sudo apt install xorg*
 
 
 sudo tightvncserver
