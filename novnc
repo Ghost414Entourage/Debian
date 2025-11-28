@@ -170,6 +170,8 @@ websockify --web=/usr/share/novnc/ 6080 localhost:5901
 
 http://<server-ip>:6080/vnc.html
 
+http://localhost/noVNC/vnc.html
+
 ls /tmp/.X11-unix/
 
 tightvncserver -kill :1
