@@ -92,7 +92,7 @@ chmod +x ~/.vnc/xstartup
 
 
 
-vncserver :1 -geometry 1280x800 -depth 24
+
 
 tightvncserver -kill :1
 tightvncserver :1 -geometry 1280x800 -depth 24
@@ -109,6 +109,7 @@ websockify --web=/usr/share/novnc/ 6080 localhost:5901
 
 http://<server-ip>:6080/vnc.html
 
+ls /tmp/.X11-unix/
 
 
 
