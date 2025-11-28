@@ -71,5 +71,33 @@ python3 -m ensurepip
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
+
+nano ~/.bashrc
+
+# PYENV configuration
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+# Additional PATH configurations
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="/root/venv/bin:$PATH"
+
+source ~/.bashrc
+sudo nano /etc/profile.d/custom_path.sh
+
+export PATH="$PATH:$HOME/.local/bin"
+
+sudo chmod +x /etc/profile.d/custom_path.sh
+
+source /etc/profile.d/custom_path.sh
 
 
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
