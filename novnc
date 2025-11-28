@@ -7,6 +7,8 @@ https://novnc.com/noVNC/docs/EMBEDDING.html
 sudo apt-get install gnome-core gnome-panel task-gnome-desktop tightvncserver
 sudo apt-get install gnome-shell gnome-session gnome-settings-daemon gnome-control-center gnome-session-flashback metacity nautilus dbus-x11 policykit-1 gnome-panel
 
+sudo apt install libjpeg62-turbo-dev libjpeg62-dev libpng-dev libpng12-dev libtool-bin uuid-dev libossp-uuid-dev libavcodec-dev libavformat-dev libavutil-dev libswscale-dev freerdp2-dev libpango1.0-dev libssh2-1-dev libtelnet-dev libvncserver-dev libwebsockets-dev libpulse-dev libssl-dev libvorbis-dev libwebp-dev 
+
 sudo apt install dbus* 
 
 
