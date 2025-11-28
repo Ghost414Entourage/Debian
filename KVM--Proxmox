@@ -1,0 +1,44 @@
+egrep -c '(vmx|svm)' /proc/cpuinfo
+
+
+echo "options kvm-intel nested=Y" | sudo tee /etc/modprobe.d/kvm-intel.conf
+sudo modprobe -r kvm_intel
+sudo modprobe kvm_intel
+
+
+cat /sys/module/kvm_intel/parameters/nested
+
+
+sudo apt update
+sudo apt install xfce4 xfce4-goodies tightvncserver novnc websockify
+
+
+sudo apt update
+sudo apt install -y qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virt-manager
+sudo systemctl enable --now libvirtd
+
+lsmod | grep kvm
+virsh capabilities | grep -i vmx
+
+
+cat /sys/module/kvm_intel/parameters/nested
+
+sudo apt install cpu-checker
+kvm-ok
+
+
+
+virsh list --all
+
+
+
+cd /var/lib/libvirt/images
+
+
+wget https://enterprise.proxmox.com/iso/proxmox-ve_9.1-1.iso
+
+
+
+ls -lh proxmox-ve_9.1-1.iso
+
+sha256sum proxmox-ve_9.1-1.iso
