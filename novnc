@@ -16,7 +16,7 @@ sudo apt install xorg*
 sudo apt-get install mesa-utils
 sudo apt-get install vulkan-tools
 sudo apt-get install libegl1-mesa libegl1
-sudo apt-get install xorg xserver-xorg mesa-utils
+sudo apt-get install xserver-xorg 
 sudo dpkg-reconfigure xserver-xorg
 
 
