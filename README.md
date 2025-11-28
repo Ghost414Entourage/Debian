@@ -10,6 +10,9 @@ sudo apt-get install gnome-core gnome-panel task-gnome-desktop tightvncserver
 sudo apt-get install xfce4 xfce4-goodies tightvncserver
 
 
+startxfce4 &
+
+
 sudo tightvncserver
 
 
