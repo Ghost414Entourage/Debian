@@ -16,17 +16,22 @@ cd .vnc
 
 nano xstartup 
 
+#!/bin/sh
+unset SESSION_MANAGER
+unset DBUS_SESSION_BUS_ADDRESS
+
 xsetroot -solid grey
 x-terminal-emulator -geometry 80x24+10+10 -ls -title "$VNCDESKTOP Desktop" &
-#x-window-manager &
 
-# Fix to make GNOME work
+# Fix GNOME keyboard issue
 export XKL_XMODMAP_DISABLE=1
-/etc/X11/Xsession
 
-#gnome-session &
+# Launch GNOME components
 gnome-panel &
 nautilus &
+gnome-settings-daemon &
+gnome-session &
+
 
 
 
