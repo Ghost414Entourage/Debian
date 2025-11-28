@@ -17,6 +17,9 @@ apt-get install -y wget
 sudo apt-get install -y libjpeg62-turbo
 sudo apt-get install -y gcc g++ make curl
 
+apt-get install -y openbox
+apt-get install -y x11-apps
+
 
 sudo apt install dbus* 
 sudo apt install xorg*
