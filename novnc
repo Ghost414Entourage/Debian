@@ -159,6 +159,12 @@ tightvncserver -kill :1
 rm -rf /tmp/.X11-unix/X1 ~/.vnc/*.pid
 tightvncserver :1 -geometry 1280x800 -depth 24
 
+sudo systemctl stop gdm3
+sudo systemctl restart gdm3
+sudo systemctl start gdm3
+sudo systemctl enable gdm3
+sudo systemctl status gdm3
+
 
 
 
