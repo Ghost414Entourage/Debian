@@ -7,7 +7,8 @@ https://novnc.com/noVNC/docs/EMBEDDING.html
 sudo apt-get install gnome-core gnome-panel task-gnome-desktop tightvncserver
 sudo apt-get install gnome-shell gnome-session gnome-settings-daemon gnome-control-center
 
-
+sudo apt install dbus* 
+sudo apt install *dbus*
 
 
 sudo tightvncserver
