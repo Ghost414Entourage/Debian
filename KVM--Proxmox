@@ -286,3 +286,76 @@ websockify --web /usr/share/novnc/ 6080 localhost:5901
 
 https://<server-ip>:6080/vnc.html
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+sudo nano /etc/systemd/system/vncserver@1.service
+
+
+
+[Unit]
+Description=VNC Server for Display :1
+After=network.target
+
+[Service]
+Type=forking
+User=root
+WorkingDirectory=/root
+
+ExecStart=/usr/bin/vncserver :1 -geometry 1280x800 -depth 24
+ExecStop=/usr/bin/vncserver -kill :1
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+
+
+
+sudo nano /etc/systemd/system/novnc.service
+
+
+[Unit]
+Description=noVNC WebSocket Proxy
+After=network.target vncserver@1.service
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/bin/websockify --web /usr/share/novnc/ 6080 localhost:5901
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+
+
+
+sudo systemctl daemon-reload
+sudo systemctl enable novnc
+sudo systemctl start novnc
+
+sudo systemctl daemon-reload
+sudo systemctl enable vncserver@1
+sudo systemctl restart vncserver@1
+
+
+systemctl status vncserver@1
+
+
+
