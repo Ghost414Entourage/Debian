@@ -95,9 +95,45 @@ sudo chmod +x /etc/profile.d/custom_path.sh
 
 source /etc/profile.d/custom_path.sh
 
+mkdir -p ~/.local/bin
+
+cd ~/.local/bin
+
+sudo nano /etc/profile.d/local_bin.sh
+
+export PATH="$HOME/.local/bin:$PATH"
+
+sudo chmod 755 /etc/profile.d/local_bin.sh
+
+source /etc/profile.d/local_bin.sh
+
+echo $PATH
+
+sudo mkdir -p /usr/local/share/pipx/venvs
+sudo mkdir -p /usr/local/bin
+sudo chown -R root:root /usr/local/share/pipx
+sudo chown -R root:root /usr/local/bin
+
+sudo nano /etc/profile.d/pyenv.sh
+
+#!/bin/sh
+export PATH="/usr/local/pyenv/shims:$PATH"
+
+# PYENV configuration
+export PYENV_ROOT="/usr/local/pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+source /etc/profile.d/pyenv.sh
 
 
 
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
