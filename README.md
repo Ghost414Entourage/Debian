@@ -7,10 +7,8 @@ https://novnc.com/noVNC/docs/EMBEDDING.html
 
 
 sudo apt-get install gnome-core gnome-panel task-gnome-desktop tightvncserver
-sudo apt-get install xfce4 xfce4-goodies tightvncserver
 
 
-startxfce4 &
 
 
 sudo tightvncserver
@@ -45,6 +43,27 @@ gnome-session &
 
 
 
+
+cat << 'EOF' > ~/.vnc/xstartup
+#!/bin/bash
+unset SESSION_MANAGER
+unset DBUS_SESSION_BUS_ADDRESS
+
+export XKL_XMODMAP_DISABLE=1
+export GNOME_SHELL_SESSION_MODE=classic
+
+# Start DBus
+eval `dbus-launch --sh-syntax`
+
+# Start GNOME session
+exec gnome-session &
+EOF
+
+
+
+
+
+
 chmod +x ~/.vnc/xstartup
 
 
@@ -52,6 +71,10 @@ chmod +x ~/.vnc/xstartup
 
 vncserver
 vncserver :1 -geometry 1280x800 -depth 24
+
+tightvncserver -kill :1
+tightvncserver :1 -geometry 1280x800 -depth 24
+
 
 
 
@@ -63,4 +86,69 @@ websockify --web=/usr/share/novnc/ 6080 localhost:5901
 
 
 http://<server-ip>:6080/vnc.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+sudo apt-get update
+sudo apt-get install xfce4 xfce4-goodies tightvncserver -y
+
+
+
+
+
+cat << 'EOF' > ~/.vnc/xstartup
+#!/bin/bash
+xrdb $HOME/.Xresources
+startxfce4 &
+EOF
+
+
+
+
+chmod +x ~/.vnc/xstartup
+
+
+
+tightvncserver -kill :1
+tightvncserver :1 -geometry 1280x800 -depth 24
+
+
+websockify --web=/usr/share/novnc/ 6080 localhost:5901
+
+
+
+
+
+
+
+
+
+
+
+cat << 'EOF' > ~/.vnc/xstartup
+#!/bin/bash
+xrdb $HOME/.Xresources
+startxfce4 &
+EOF
+chmod +x ~/.vnc/xstartup
+
+
+tightvncserver -kill :1
+tightvncserver :1 -geometry 1280x800 -depth 24
+
+
+websockify --web=/usr/share/novnc/ 6080 localhost:5901
+
+
+
 
