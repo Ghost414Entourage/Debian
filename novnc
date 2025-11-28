@@ -13,6 +13,12 @@ sudo apt install libcairo2-dev libjpeg62-turbo-dev libpng-dev libtool-bin uuid-d
 sudo apt install dbus* 
 sudo apt install xorg*
 
+sudo apt-get install mesa-utils
+sudo apt-get install vulkan-tools
+sudo apt-get install libegl1-mesa libegl1
+sudo apt-get install xorg xserver-xorg mesa-utils
+sudo dpkg-reconfigure xserver-xorg
+
 
 sudo tightvncserver
 
